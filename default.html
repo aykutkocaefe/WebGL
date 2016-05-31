@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Kupu Dondur</title>
+  <style>
+    html { overflow: hidden; }
+    body { margin: 0; padding: 0; overflow: hidden; }
+    canvas { width: 100%; height: 100% }
+  </style>
+</head>
+<body>
+  <script src="JS/Three.js"></script>
+  <script>
+	document.onkeydown = handleKeyDown;
+	var ify = 0;
+	var ifx = 0;
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    var clock = new THREE.Clock();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+    var geometry = new THREE.BoxGeometry(1,1,1);
+    var material = new THREE.MeshNormalMaterial();
+    var cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);//sahneye olusturulan cube objesi eklenir.
+    camera.position.z = 5;//kameranýn z koordinatini 5 yapar.
+    var render = function () {
+      requestAnimationFrame(render);
+      var delta = clock.getDelta();
+
+	  cube.rotation.y += ify * delta;//y ekseninde dondurmek icin yapilan islem
+	  cube.rotation.x += ifx * delta;//x ekseninde dondurmek icin yapilan islem
+
+
+
+      renderer.render(scene, camera);
+    };
+    render();
+	function handleKeyDown(event) {
+
+ 
+    if (event.keyCode == 37) {
+        //Sol Yon Tusu
+        ify -= 1;
+    }
+	if (event.keyCode == 38) {
+        //Yukari Yon Tusu
+        ifx += 1;
+    }
+	if (event.keyCode == 39) {
+        //Sag Yon Tusu
+        ify += 1;
+    }
+	if (event.keyCode == 40) {
+        //Asagi Yon Tusu
+
+		ifx += -1;
+    } 
+}
+  </script>
+
+</body></html>
